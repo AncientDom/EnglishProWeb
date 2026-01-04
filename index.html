@@ -7,13 +7,8 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-
-    <header class="app-header">
-        <h1>English Pro</h1>
-    </header>
-
+    <header class="app-header"><h1>English Pro</h1></header>
     <main id="main-content">
-        
         <section id="vocab-section" class="active-section">
             <div class="card-stack">
                 <div id="vocab-card" class="flashcard">
@@ -24,69 +19,33 @@
                     <p id="v-sentence" class="sentence"></p>
                 </div>
             </div>
-            <div class="controls">
-                <p id="v-progress" style="text-align: center; color: #888;">Word 0/0</p>
-                <button onclick="app.nextWord()" class="btn-primary">Next Word</button>
-            </div>
+            <div class="controls"><p id="v-progress" style="text-align:center;color:#888">Word 0/0</p><button onclick="app.nextWord()" class="btn-primary">Next Word</button></div>
         </section>
-
         <section id="grammar-section" class="hidden-section">
-            <div style="margin-bottom: 20px;">
-                <input type="text" id="grammar-search" placeholder="Search rules..." onkeyup="app.filterGrammar()" 
-                style="width: 90%; padding: 12px; border: 1px solid #ddd; border-radius: 25px; display: block; margin: 0 auto;">
-            </div>
-            <div id="grammar-list" class="accordion-container">
-                </div>
+            <input type="text" id="grammar-search" placeholder="Search rules..." onkeyup="app.filterGrammar()" style="width:90%;padding:12px;border:1px solid #ddd;border-radius:25px;display:block;margin:0 auto 20px;">
+            <div id="grammar-list"></div>
         </section>
-
         <section id="reading-section" class="hidden-section">
-            <div id="story-list-view">
-                </div>
-            
+            <div id="story-list-view"></div>
             <div id="story-detail-view" class="hidden">
-                <button onclick="app.closeStory()" class="btn-back">← Back to Library</button>
-                <h2 id="story-title" style="color:var(--primary)">Title</h2>
-                <div id="story-text" class="story-content"></div>
-                <button onclick="app.startStoryQuiz()" class="btn-action">Start Comprehension Quiz</button>
-                
-                <div id="story-quiz-container" class="hidden">
-                    <h3 style="margin-top: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px;">Quiz</h3>
-                    <div id="quiz-questions-area"></div>
-                    <div id="quiz-result" class="hidden"></div>
-                </div>
+                <button onclick="app.closeStory()" class="btn-back">← Back</button>
+                <h2 id="story-title" style="color:var(--primary)"></h2>
+                <div id="story-text" style="line-height:1.6;margin-bottom:30px;"></div>
+                <button onclick="app.startStoryQuiz()" class="btn-action">Start Quiz</button>
+                <div id="story-quiz-container" class="hidden"><h3 style="margin-top:30px;border-bottom:1px solid #eee">Quiz</h3><div id="quiz-questions-area"></div></div>
             </div>
         </section>
-
         <section id="exam-section" class="hidden-section">
-            <div class="exam-header">
-                <span>Score: <b id="exam-score" style="color:var(--primary); font-size: 1.5rem;">0</b></span>
-                <button onclick="app.generateExam()" class="btn-small">Skip</button>
-            </div>
-            <div id="exam-container">
-                </div>
+            <div class="exam-header"><span>Score: <b id="exam-score" style="color:var(--primary)">0</b></span><button onclick="app.generateExam()" class="btn-small">Skip</button></div>
+            <div id="exam-container"></div>
         </section>
-
     </main>
-
     <nav class="bottom-nav">
-        <button onclick="app.nav('vocab')" class="nav-item active" id="nav-vocab">
-            <span>📚</span>
-            <span style="font-size: 12px;">Vocab</span>
-        </button>
-        <button onclick="app.nav('grammar')" class="nav-item" id="nav-grammar">
-            <span>👓</span>
-            <span style="font-size: 12px;">Rules</span>
-        </button>
-        <button onclick="app.nav('reading')" class="nav-item" id="nav-reading">
-            <span>📖</span>
-            <span style="font-size: 12px;">Read</span>
-        </button>
-        <button onclick="app.nav('exam')" class="nav-item" id="nav-exam">
-            <span>✅</span>
-            <span style="font-size: 12px;">Exam</span>
-        </button>
+        <button onclick="app.nav('vocab')" class="nav-item active" id="nav-vocab"><span>📚</span><span style="font-size:12px">Vocab</span></button>
+        <button onclick="app.nav('grammar')" class="nav-item" id="nav-grammar"><span>👓</span><span style="font-size:12px">Rules</span></button>
+        <button onclick="app.nav('reading')" class="nav-item" id="nav-reading"><span>📖</span><span style="font-size:12px">Read</span></button>
+        <button onclick="app.nav('exam')" class="nav-item" id="nav-exam"><span>✅</span><span style="font-size:12px">Exam</span></button>
     </nav>
-
     <script src="assets/js/dataService.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
