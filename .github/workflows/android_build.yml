@@ -1,0 +1,43 @@
+name: Build Android APK
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+
+      # Setup Java
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Install Cordova (The tool that wraps HTML to APK)
+      - name: Install Cordova
+        run: npm install -g cordova
+
+      # Create Cordova Project Structure on the fly
+      - name: Setup Cordova
+        run: |
+          cordova create app com.englishpro.offline EnglishPro
+          cp -r assets app/www/
+          cp -r public_db app/www/
+          cp index.html app/www/
+          cp config.xml app/
+          cd app
+          cordova platform add android
+          cordova build android --release -- --packageType=apk
+
+      # Upload the APK to GitHub Actions Artifacts
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release
+          path: app/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
