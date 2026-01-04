@@ -1,6 +1,5 @@
 const DataService = {
-    // 1. ONLINE: The "Live" Links (For updates without reinstalling APK)
-    // REPLACE [YOUR_USERNAME] WITH YOUR ACTUAL GITHUB USERNAME
+    // 1. ONLINE: The "Live" Link (Fixed for your Repo: EnglishProWeb)
     onlineBase: 'https://raw.githubusercontent.com/AncientDom/EnglishProWeb/main/public_db/',
     
     // 2. OFFLINE: The "Local" backup files bundled inside the APK
@@ -14,27 +13,27 @@ const DataService = {
             if (!response.ok) throw new Error("Online fetch failed");
             const data = await response.json();
             
-            // Save to localStorage so next time it's instant
+            // Save to localStorage
             localStorage.setItem(filename, JSON.stringify(data));
             return data;
         } catch (e) {
-            console.log(`Online failed or offline. Checking local/cache for ${filename}...`);
+            console.log(`Online failed/offline. Checking cache for ${filename}...`);
         }
 
-        // Step B: If Online fails, check Local Storage Cache
+        // Step B: Check Local Storage Cache
         const cached = localStorage.getItem(filename);
         if (cached) {
             console.log(`Found cached data for ${filename}`);
             return JSON.parse(cached);
         }
 
-        // Step C: If all else fails, load from the APK assets folder
+        // Step C: Load from APK assets
         try {
             const response = await fetch(this.localBase + filename);
             return await response.json();
         } catch (e) {
-            console.error(`Critical Failure: Could not load ${filename}. Ensure 'public_db' is generated.`);
-            return []; // Return empty list to prevent crash
+            console.error(`Critical Failure: Could not load ${filename}.`);
+            return [];
         }
     },
 
