@@ -1,26 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.englishpro.offline" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    
     <name>English Pro</name>
-    
-    <description>
-        An offline English learning application with Vocabulary, Grammar, and Stories.
-    </description>
-    
-    <author email="support@englishpro.com" href="https://github.com/YOUR_USERNAME">
-        English Pro Team
-    </author>
-    
+    <description>Offline English Learning App</description>
+    <author email="admin@englishpro.com" href="https://github.com/AncientDom">English Pro Team</author>
     <content src="index.html" />
-    
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    
     <platform name="android">
         <allow-intent href="market:*" />
         <preference name="KeepRunning" value="true"/>
         <preference name="Orientation" value="portrait" />
     </platform>
-
 </widget>
