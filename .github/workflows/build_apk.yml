@@ -1,0 +1,61 @@
+name: Build Android APK (Debug)
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Cordova
+        run: npm install -g cordova
+
+      - name: Build Project
+        run: |
+          echo "Starting Build Process..."
+          
+          # 1. Create a temporary Cordova project
+          cordova create app com.englishpro.offline EnglishPro
+          
+          # 2. Copy config.xml to app root
+          if [ -f "config.xml" ]; then
+            cp config.xml app/
+            echo "✅ Config.xml copied."
+          else
+            echo "❌ ERROR: config.xml not found. Please ensure it is in the repo root."
+            exit 1
+          fi
+          
+          # 3. Clean default web files
+          rm -rf app/www/*
+          
+          # 4. Copy YOUR repo files into the app (excluding git/github/app folders)
+          rsync -av --progress . app/www/ --exclude .git --exclude .github --exclude app
+          
+          # 5. Build Debug APK (Auto-signed)
+          cd app
+          cordova platform add android
+          cordova build android --debug -- --packageType=apk
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: EnglishPro-Debug-APK
+          path: app/platforms/android/app/build/outputs/apk/debug/app-debug.apk
